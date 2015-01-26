@@ -1,0 +1,59 @@
+buildscript {
+  repositories {
+    maven { url 'http://repo.springsource.org/libs-snapshot' }
+    mavenLocal()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:$bootVersion")
+  }
+}
+
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven { url 'https://repo.spring.io/libs-snapshot' }
+  maven { url 'https://repo.spring.io/plugins-release' }
+}
+
+
+dependencies {
+  compile "org.springframework.boot:spring-boot-starter-web:$bootVersion"
+  compile "org.springframework.boot:spring-boot-starter-actuator:$bootVersion"
+  compile "org.springframework.boot:spring-boot-starter-thymeleaf:$bootVersion"
+  compile "org.springframework:spring-context-support:$springVersion"
+  compile 'com.fasterxml.jackson.core:jackson-databind'
+
+
+  // this breaks it
+  compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+
+
+  // this works
+  //compile "org.codehaus.groovy:groovy:$groovyVersion"
+
+
+
+  compile ("com.mangofactory:swagger-springmvc:0.8.8") {
+    exclude module: 'scalap'
+  }
+
+  compile 'com.google.guava:guava:16.0.1'
+}
+
+
+
+jar {
+  baseName = 'Tester'
+  version = "$version"
+}
+
+
+task(type: Wrapper) {
+  gradleVersion = "$gradleVersion"
+}

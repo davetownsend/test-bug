@@ -1,0 +1,8 @@
+build
+classes
+.idea
+.yo-rc.json
+.gradle
+*.iml
+bower_components/
+logs/
